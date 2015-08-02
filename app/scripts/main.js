@@ -1,6 +1,9 @@
 /* jshint devel:true */
+
 'use strict';
 
-let sketch = require('./sketch');
+import sketch from './sketch';
 
+// initialize sketch
 sketch.init();
+

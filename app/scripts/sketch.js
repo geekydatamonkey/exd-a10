@@ -1,58 +1,106 @@
-// sketch.js
-/*jshint newcap: false */
+/* jshint newcap: false */
 
 'use strict';
 
-const p5 = require('p5');
-const $ = require('jquery');
+import $ from 'jquery';
+import _ from 'lodash';
+import p5 from 'p5';
+import ParticleSystem from './ParticleSystem';
+//import { getRandomInt } from './util';
 
-let $canvasWrapper = $('.canvas-wrapper');
+let Vector = p5.Vector;
 
-/**
-* sketch function, which allows p5 to run in instance mode
-*/
-function mySketch(s) {
+let config = {
+  parent: '.canvas-wrapper',
+};
 
-  /**
-  * p5 setup
-  */
+let $canvasWrapper = $(config.parent);
+let particleSys;
+
+function sketch(s) {
+
   s.setup = function() {
 
-    // create canvas and put in canvasWrapper
-    s.createCanvas($canvasWrapper.innerWidth(), $canvasWrapper.innerHeight())
-      .parent($canvasWrapper[0]);
+    s.createCanvas(
+      $canvasWrapper.innerWidth(),
+      $canvasWrapper.innerHeight()
+    ).parent($canvasWrapper[0]);
 
-    // load data from a mcad.edu
-    $.ajax({
-        type: 'GET',
-        url: 'http://mcad.edu',
-        dataType: 'jsonp',
-    }).success( function( data ) {
-        $canvasWrapper.html(data);
+    s.background(0);
+    s.noStroke();
+
+    particleSys = new ParticleSystem({
+      sketch: s,
+      gravitationalConstant: -5 * Math.pow(10,3),
+      frictionFactor: 0.2,
     });
 
+    window.particleSys = particleSys;
+
+    let p0 = particleSys.add( {
+      position: new Vector(s.width/2 - 100, s.height/2),
+      color: 'red',
+    });
+
+    let p1 = particleSys.add( {
+      position: new Vector(s.width/2 + 100, s.height/2),
+      color: 'blue',
+    });
+
+    let p2 = particleSys.add( {
+      position: new Vector(s.width/2 + 200, s.height/2 - 100),
+      color: 'green',
+    });
+
+    particleSys.connect(p0, p1);
+    particleSys.connect(p1, p2);
+
+    for (let i=0; i < 6; i++) {
+      let p = particleSys.add( {
+        position: new Vector(s.width/2, s.height/2),
+        color: 'magenta',
+      });
+      particleSys.connect(p2, p);
+    }
+    for (let i=0; i < 4; i++) {
+      let p = particleSys.add( {
+        position: new Vector(s.width/2 + i, s.height/2 - i),
+        color: 'yellow',
+      });
+      particleSys.connect(p1, p);
+    }
+
+    let last = _.last(particleSys.particles);
+    for (let i=0; i < 3; i++) {
+      let p = particleSys.add( {
+        position: new Vector(s.width/2, s.height/2),
+        color: 'orange',
+      });
+      particleSys.connect(last, p);
+    }
+
   };
 
-  /**
-  * p5 draw
-  * continuously loops
-  */
   s.draw = function() {
+    s.background(0);
+    particleSys.update().render();
   };
 
-  /**
-  * resize canvas on window resize
-  */
+  s.keyPressed = function() {
+    if (s.key === ' ') {
+      particleSys.removeAll();
+    }
+  };
+
   s.windowResized = function() {
-    s.resizeCanvas($canvasWrapper.innerWidth(), $canvasWrapper.innerHeight());
+    s.resizeCanvas( $canvasWrapper.innerWidth(), $canvasWrapper.innerHeight() );
+    s.setup();
   };
 
 }
 
 function init() {
-  return new p5(mySketch);
+  return new p5(sketch);
 }
 
-module.exports = {
-  init
-};
+export default { init };
