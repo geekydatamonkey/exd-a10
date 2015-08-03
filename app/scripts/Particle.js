@@ -27,8 +27,6 @@ export default class Particle {
       velocity: new p5.Vector(0,0),
       color: [127],
       radius: 10,
-      parents: [],
-      children: [],
     };
 
     config = _.assign({}, defaults, config);

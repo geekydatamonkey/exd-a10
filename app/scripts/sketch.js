@@ -3,10 +3,10 @@
 'use strict';
 
 import $ from 'jquery';
-import _ from 'lodash';
+//import _ from 'lodash';
 import p5 from 'p5';
 import ParticleSystem from './ParticleSystem';
-//import { getRandomInt } from './util';
+import { getRandomInt } from './util';
 
 let Vector = p5.Vector;
 
@@ -37,53 +37,52 @@ function sketch(s) {
 
     window.particleSys = particleSys;
 
-    let p0 = particleSys.add( {
-      position: new Vector(s.width/2 - 100, s.height/2),
-      color: 'red',
-    });
-
-    let p1 = particleSys.add( {
-      position: new Vector(s.width/2 + 100, s.height/2),
-      color: 'blue',
-    });
-
-    let p2 = particleSys.add( {
-      position: new Vector(s.width/2 + 200, s.height/2 - 100),
-      color: 'green',
-    });
-
-    particleSys.connect(p0, p1);
-    particleSys.connect(p1, p2);
-
-    for (let i=0; i < 6; i++) {
-      let p = particleSys.add( {
-        position: new Vector(s.width/2, s.height/2),
-        color: 'magenta',
-      });
-      particleSys.connect(p2, p);
-    }
-    for (let i=0; i < 4; i++) {
-      let p = particleSys.add( {
-        position: new Vector(s.width/2 + i, s.height/2 - i),
-        color: 'yellow',
-      });
-      particleSys.connect(p1, p);
-    }
-
-    let last = _.last(particleSys.particles);
-    for (let i=0; i < 3; i++) {
-      let p = particleSys.add( {
-        position: new Vector(s.width/2, s.height/2),
-        color: 'orange',
-      });
-      particleSys.connect(last, p);
-    }
+    generateRandomTree();
 
   };
+
+  function generateRandomTree() {
+    let n = getRandomInt(20, 100);
+    console.log(`Generating Tree: ${n} nodes`);
+
+    // create a root
+    particleSys.add( {
+      position: new Vector(
+        getRandomInt(0, s.width),
+        getRandomInt(0, s.height)
+      ),
+      color: [255,0,0],
+    });
+
+
+    for (let i=0; i < n; i++) {
+
+      let parentIdx = getRandomInt(0, particleSys.particles.length - 1);
+      let parent = particleSys.particles[parentIdx];
+
+      // create a new particle
+      let p = particleSys.add( {
+        position: new Vector(s.width/2, s.height/2),
+        color: [
+          getRandomInt(0, 255),
+          getRandomInt(0, 255),
+          getRandomInt(0, 255)
+        ],
+      });
+
+      // attach particle to parent
+      particleSys.connect(parent, p);
+    }
+  }
 
   s.draw = function() {
     s.background(0);
     particleSys.update().render();
+  };
+
+  s.mouseClicked = function() {
+    particleSys.removeAll();
+    generateRandomTree();
   };
 
   s.keyPressed = function() {

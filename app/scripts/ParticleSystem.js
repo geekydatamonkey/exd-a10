@@ -41,6 +41,7 @@ export default class ParticleSystem {
   */
   removeAll() {
     this.particles = [];
+    this.sticks = [];
   }
 
   connect(head, tail, connectionLength = 30) {
