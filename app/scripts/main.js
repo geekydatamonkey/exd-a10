@@ -17,7 +17,7 @@ import { getRandomInt } from './util';
 window.app = window.app || {};
 let app = window.app;
 
-let url = app.url = 'http://james.mn';
+let url = app.url = 'http://p5js.org';
 let Vector = p5.Vector;
 
 (function() {
