@@ -44,10 +44,12 @@
     "wiredep": "^2.0.0"
   },
   "dependencies": {
+    "gumbo-parser": "^0.2.1",
     "htmlparser2": "^3.8.3",
     "jquery": "^2.1.4",
     "js-beautify": "^1.5.10",
     "lodash": "^3.9.3",
-    "p5": "0.4.5"
+    "p5": "0.4.5",
+    "superagent": "^1.2.0"
   }
 }

@@ -3,19 +3,26 @@
 'use strict';
 
 import $ from 'jquery';
-//import _ from 'lodash';
 import p5 from 'p5';
 import ParticleSystem from './ParticleSystem';
 import { getRandomInt } from './util';
 
+/**
+* namespace
+*/
+window.app = window.app || {};
+let app = window.app;
+
+/**
+* app variables
+*/
 let Vector = p5.Vector;
-
-let config = {
-  parent: '.canvas-wrapper',
-};
-
+let config = { parent: '.canvas-wrapper' };
 let $canvasWrapper = $(config.parent);
 let particleSys;
+
+
+app.particleSys = particleSys;
 
 function sketch(s) {
 
@@ -35,9 +42,9 @@ function sketch(s) {
       frictionFactor: 0.2,
     });
 
-    window.particleSys = particleSys;
+    app.particleSys = particleSys;
 
-    generateRandomTree();
+    //generateRandomTree();
 
   };
 
@@ -80,10 +87,10 @@ function sketch(s) {
     particleSys.update().render();
   };
 
-  s.mouseClicked = function() {
-    particleSys.removeAll();
-    generateRandomTree();
-  };
+  // s.mouseClicked = function() {
+  //   particleSys.removeAll();
+  //   generateRandomTree();
+  // };
 
   s.keyPressed = function() {
     if (s.key === ' ') {
