@@ -17,7 +17,7 @@ import { getRandomInt } from './util';
 window.app = window.app || {};
 let app = window.app;
 
-let url = 'http://www.mcad.edu';
+let url = app.url = 'http://james.mn';
 let Vector = p5.Vector;
 
 (function() {
@@ -81,6 +81,7 @@ let Vector = p5.Vector;
             getRandomInt(0, 255),
             getRandomInt(0, 255)
           ],
+          name: node.nodeName,
         });
 
         // keep a reference to this particle on
