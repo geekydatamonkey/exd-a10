@@ -60,7 +60,6 @@ let Vector = p5.Vector;
       let s = app.sketch;
       
       // walk the dom, creating new particles
-
       walkTheDom(dom, function(node) {
 
         // ignore all but doc and element nodes
@@ -68,13 +67,10 @@ let Vector = p5.Vector;
           return;
         }
 
-        // ignore !doctype
-
-
         let p = particleSys.add( {
           position: new Vector(
-            getRandomInt(0, s.width),
-            getRandomInt(0, s.height)
+            getRandomInt(s.width/2 - 50, s.width/2 + 50),
+            getRandomInt(s.height/2 - 50, s.height/2 + 50)
           ),
           color: [
             getRandomInt(0, 255),
@@ -103,7 +99,6 @@ let Vector = p5.Vector;
       });
     });
 })();
-
 
 
 
