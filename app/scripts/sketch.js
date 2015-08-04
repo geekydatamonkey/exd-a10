@@ -6,7 +6,7 @@ import $ from 'jquery';
 import _ from 'lodash';
 import p5 from 'p5';
 import ParticleSystem from './ParticleSystem';
-import { getRandomInt } from './util';
+//import { getRandomInt } from './util';
 
 /**
 * namespace
@@ -17,7 +17,7 @@ let app = window.app;
 /**
 * app variables
 */
-let Vector = p5.Vector;
+//let Vector = p5.Vector;
 let config = { parent: '.canvas-wrapper' };
 let $canvasWrapper = $(config.parent);
 let particleSys;
