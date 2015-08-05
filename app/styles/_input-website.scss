@@ -1,0 +1,81 @@
+.input-website {
+
+  position: absolute;
+  z-index: 10;
+  font-size: 2em;
+  top: 25%;
+  left: 50%;
+  width: 80%;
+  max-width: 26em;
+  height: 3em;
+  transform: translate(-50%,-50%);
+  color: $text-color;
+  // background: $background-color;
+  text-align: center;
+  border: none;
+  overflow: auto;
+
+
+  ::-webkit-input-placeholder {
+    color: $placeholder-color;
+  }
+  :-moz-placeholder {
+    color: $placeholder-color;
+  } 
+  ::-moz-placeholder {
+    color: $placeholder-color;
+  }
+  :-ms-input-placeholder {  
+     color: $placeholder-color;  
+  }
+
+  input {
+    font-family: 'Fira Mono';
+    font-weight: 300;
+    display: block;
+    width: 89.5%;
+    height: 100%;
+    float: left;
+    font-size: inherit;
+    background: none;
+    padding: 0.5em;
+    border: 0;
+    background: $background-color;
+    //border-right: 0.125em solid $black;
+    color: $text-color;
+    &:focus {
+      outline: none;
+      border: 1px solid 
+    }
+  }
+  .js-load-page {
+    display: block;
+    width: 10%;
+    height: 100%;
+    float: right;
+    border-radius: 0;
+    text-decoration: none;
+    border-bottom: 0;
+    background: $background-color;
+    color: $text-color;
+    position: relative;
+    &:hover {
+      background-color: $text-color;
+      i {
+        color: $black;
+      }
+    }
+    &:active {
+      background-color: $white;
+      i {
+        color: $black;
+      }
+    }
+    i {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+    }
+  }
+}
