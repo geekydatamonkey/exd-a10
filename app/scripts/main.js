@@ -2,8 +2,6 @@
 
 'use strict';
 
-//import loadDOM from './loadDOM';
-//import { xhrGet } from './xhrGet';
 import sketch from './sketch';
 import $ from 'jquery';
 import p5 from 'p5';
@@ -17,13 +15,16 @@ import { getRandomInt } from './util';
 window.app = window.app || {};
 let app = window.app;
 
-let url = app.url = 'http://p5js.org';
+app.url = 'http://p5js.org';
 let Vector = p5.Vector;
 
-(function() {
+app.sketch = sketch.init();
+
+
+function sketchDOM() {
 
   // load DOM
-  let domPromise = Promise.resolve($.getJSON('http://whateverorigin.org/get?url=' + encodeURIComponent(url) + '&callback=?')
+  let domPromise = Promise.resolve($.getJSON('http://whateverorigin.org/get?url=' + encodeURIComponent(app.url) + '&callback=?')
   ).then((data) => {
     let parser = new DOMParser();
     let dom = parser.parseFromString(data.contents, 'text/html');
@@ -36,8 +37,7 @@ let Vector = p5.Vector;
 
   // setup sketch
   let particleSysPromise = new Promise(function(resolve) {
-      app.sketch = sketch.init();
-
+      
       // FIXME: is there a better way to check if
       // setup() has already ran on sketch?
       (function poll() {
@@ -56,6 +56,9 @@ let Vector = p5.Vector;
   // check that dom is loaded and particleSys is spawned
   Promise.all([domPromise, particleSysPromise])
     .then(([dom, particleSys]) => {
+
+      // reset particle system;
+      app.particleSys.removeAll();
 
       let s = app.sketch;
       
@@ -98,12 +101,27 @@ let Vector = p5.Vector;
 
       });
     });
-})();
+}
 
 (function() {
 
+  function onSubmit() {
+    app.url = $('.input-website input').val();
+    console.log('app.url', app.url);
+    if (app.url) {
+      sketchDOM(); 
+    } else {
+      throw(`no url set: ${app.url}`);
+    }
+  }
 
-
+  $('.js-load-page').on('click', onSubmit);
+  $('.input-website input').on('keypress', function(event){
+    if ( event.which === 13 ) {
+      event.preventDefault();
+      onSubmit();
+    }
+  });
 
 })();
 
