@@ -32,7 +32,6 @@
     "karma-mocha": "^0.1.10",
     "karma-mocha-reporter": "^1.0.2",
     "karma-phantomjs-launcher": "^0.2.0",
-    "lodash.assign": "^3.2.0",
     "main-bower-files": "^2.5.0",
     "mocha": "^2.2.5",
     "opn": "^1.0.0",
@@ -44,12 +43,8 @@
     "wiredep": "^2.0.0"
   },
   "dependencies": {
-    "gumbo-parser": "^0.2.1",
-    "htmlparser2": "^3.8.3",
     "jquery": "^2.1.4",
-    "js-beautify": "^1.5.10",
     "lodash": "^3.9.3",
-    "p5": "0.4.5",
-    "superagent": "^1.2.0"
+    "p5": "0.4.5"
   }
 }

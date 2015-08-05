@@ -30,7 +30,7 @@
   }
 
   input {
-    font-family: 'Fira Mono';
+    font-family: 'Fira Sans', sans-serif;
     font-weight: 300;
     display: block;
     width: 89.5%;
@@ -41,11 +41,12 @@
     padding: 0.5em;
     border: 0;
     background: $background-color;
-    //border-right: 0.125em solid $black;
     color: $text-color;
     &:focus {
       outline: none;
-      border: 1px solid 
+      color: $active-text-color;
+      background: $active-background-color;
+      //border-bottom: 1px solid $text-color;
     }
   }
   .js-load-page {

@@ -3,8 +3,6 @@
   "private": true,
   "dependencies": {
     "jquery": "~2.1.1",
-    "modernizr": "~2.8.1",
-    "fira": "~0.1.0",
-    "prism": "~1.0.1"
+    "modernizr": "~2.8.1"
   }
 }
